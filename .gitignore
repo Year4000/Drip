@@ -1,0 +1,11 @@
+# Copyright 2016 Year4000. All Rights Reserved.
+
+# Gradle
+.gradle/
+build/
+**/src/generated
+
+# IDE's
+.idea/
+*.iml
+*~

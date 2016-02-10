@@ -1,0 +1,33 @@
+// Copyright 2016 Year4000. All Rights Reserved.
+
+apply plugin: 'java'
+apply from: 'gradle/utils.gradle'
+
+defaultTasks 'clean', 'build'
+
+// Project Details
+group 'net.year4000'
+version '0.0.1-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jar.manifest {
+    attributes 'Implementation-Title': rootProject.name
+    attributes 'Implementation-Version': version
+    attributes 'Git-Version': git()
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'sponge'
+        url = 'http://repo.spongepowered.org/maven'
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'org.spongepowered:spongeapi:3.0.0'
+    compile 'org.projectlombok:lombok:1.14.8'
+}
