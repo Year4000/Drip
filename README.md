@@ -1,5 +1,7 @@
 # Drip
 
+[![Build Status](https://travis-ci.org/Year4000/Drip.svg?branch=master)](https://travis-ci.org/Year4000/Drip)
+
 ## Info
 
 Drip is a Sponge plugin.
