@@ -1,9 +1,8 @@
 # Copyright 2016 Year4000. All Rights Reserved.
 
 language: java
-
 jdk:
 - oraclejdk8
-
 notifications:
   email: false
+script: ./gradlew

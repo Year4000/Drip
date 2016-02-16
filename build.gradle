@@ -9,7 +9,7 @@ plugins {
 
 apply from: project('utilities').file('gradle/utils.gradle')
 
-defaultTasks 'clean', 'build'
+defaultTasks 'clean', 'build', 'test'
 
 // Project Details
 group 'net.year4000'
