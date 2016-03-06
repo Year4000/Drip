@@ -6,6 +6,8 @@ package net.year4000.drip;
 
 public final class Constants {
 
+    private Constants() {}
+
     /** The version of Drip */
     public static final String VERSION = "${version}";
 
