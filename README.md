@@ -6,6 +6,11 @@
 
 Drip is a Sponge plugin.
 
-## Copyright
+## License / Copyright
 
-Copyright 2016 Year4000. All Rights Reserved.
+This project is licensed under the [GNU General Public License][license], version 3.
+
+Copyright &copy; 2016 Year4000 [www.year4000.net][year4000]
+
+[license]: https://www.gnu.org/copyleft/gpl.html
+[year4000]: https://www.year4000.net/
