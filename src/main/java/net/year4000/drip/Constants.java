@@ -4,9 +4,13 @@
 
 package net.year4000.drip;
 
+import net.year4000.utilities.utils.UtilityConstructError;
+
 public final class Constants {
 
-    private Constants() {}
+    private Constants() {
+        UtilityConstructError.raise();
+    }
 
     /** The version of Drip */
     public static final String VERSION = "${version}";
