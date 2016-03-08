@@ -7,10 +7,19 @@ package net.year4000.drip;
 import com.google.inject.Inject;
 import net.year4000.utilities.sponge.AbstractSpongePlugin;
 import org.spongepowered.api.Game;
+import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.service.ServiceManager;
 
-@Plugin(id = "drip", name = "Drip", version = Constants.FULL_VERSION, dependencies = "after:utilities")
+@Plugin(
+    id = "net.year4000.drip",
+    name = "Drip",
+    version = Constants.FULL_VERSION,
+    dependencies = {@Dependency(id = "net.year4000.utilities")},
+    description = "A core system for drip modules.",
+    url = "https://www.year4000.net",
+    authors = {"ewized"}
+)
 public class Drip extends AbstractSpongePlugin {
     @Inject
     protected Game game;

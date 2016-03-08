@@ -20,19 +20,24 @@ import org.spongepowered.api.event.block.ChangeBlockEvent;
 import org.spongepowered.api.event.filter.cause.First;
 import org.spongepowered.api.event.game.state.GameAboutToStartServerEvent;
 import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
+import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
-import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-@Plugin(id = "protection", name = "Protect.Drip", version = Constants.GIT_HASH, dependencies = "after:drip")
+@Plugin(
+    id = "net.year4000.drip.protection",
+    name = "Protect.Drip",
+    version = Constants.GIT_HASH,
+    dependencies = {@Dependency(id = "net.year4000.drip")},
+    description = "Protect all the things without a database.",
+    url = "https://www.year4000.net",
+    authors = {"ewized"}
+)
 public final class Protection extends Drip {
     /** The internal protection manager */
     private ProtectionManager manager;
@@ -74,7 +79,7 @@ public final class Protection extends Drip {
     public void on(ChangeBlockEvent.Break event, @First Player player) {
         BlockSnapshot block = event.getTransactions().get(0).getFinal();
         Pair<Vector2i, BlockState[][]> flat = flatten(block.getLocation().get());
-        player.sendMessage(Text.of("-----"));
+        /*player.sendMessage(Text.of("-----"));
         for (int i = 0; i < 16; i++) {
             String line = Stream.of(flat.b.get()[i])
                     .map(state -> {
@@ -86,7 +91,7 @@ public final class Protection extends Drip {
                     })
                     .collect(Collectors.joining());
             player.sendMessage(Text.of(i % 2 == 0 ? TextColors.GREEN : TextColors.DARK_GREEN, line));
-        }
+        }*/
     }
 
     /** Convert a list of Pairs for BlockState */
