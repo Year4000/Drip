@@ -14,17 +14,22 @@ import org.spongepowered.api.block.BlockSnapshot;
 import org.spongepowered.api.block.BlockState;
 import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.block.BlockTypes;
+import org.spongepowered.api.data.key.Keys;
+import org.spongepowered.api.data.manipulator.mutable.entity.SneakingData;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.ChangeBlockEvent;
 import org.spongepowered.api.event.filter.cause.First;
+import org.spongepowered.api.event.filter.data.Has;
 import org.spongepowered.api.event.game.state.GameAboutToStartServerEvent;
 import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
 import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.text.Text;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -41,6 +46,7 @@ import java.util.Set;
 public final class Protection extends Drip {
     /** The internal protection manager */
     private ProtectionManager manager;
+    private static final Text SIGN_HEADER = Text.of("[Protect]");
 
     private final Set<BlockType> BLOCK_TYPES = ImmutableSet.of(
             BlockTypes.FENCE,
@@ -58,7 +64,6 @@ public final class Protection extends Drip {
             BlockTypes.NETHER_BRICK_FENCE
     );
 
-
     @Listener
     public void on(GamePostInitializationEvent event) {
         // Register the protection manager / service
@@ -73,6 +78,23 @@ public final class Protection extends Drip {
     /** Grab {@link Protection} instance*/
     public static Protection get() {
         return instance();
+    }
+
+    @Listener
+    public void on(ChangeBlockEvent.Place event, @First @Has(SneakingData.class) Player player) {
+        BlockSnapshot block = event.getTransactions().get(0).getFinal();
+
+        // Only if placed block is a wall sign
+        if (!block.getState().getType().equals(BlockTypes.WALL_SIGN)) return;
+
+        // Only when player is sneaking
+        if (!player.getValue(Keys.IS_SNEAKING).get().get()) return;
+
+        // Set the text of the sign
+        block.getLocation().get().getTileEntity().ifPresent(entity -> {
+            List<Text> lines = Arrays.asList(SIGN_HEADER, Text.of(player.getName()));
+            entity.offer(Keys.SIGN_LINES, lines);
+        });
     }
 
     @Listener
