@@ -5,6 +5,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'net.ellune.blossom' version '1.0.1'
+    id 'org.spongepowered.plugin' version '0.5.1'
 }
 
 apply from: project('utilities').file('gradle/utils.gradle')
@@ -14,9 +15,6 @@ defaultTasks 'clean', 'build'
 // Project Details
 group 'net.year4000'
 version '0.0.1-SNAPSHOT'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 jar.manifest {
     attributes 'Implementation-Title': rootProject.name
@@ -28,14 +26,6 @@ blossom {
     def constants = 'src/main/java/net/year4000/drip/Constants.java'
     replaceToken '${version}', version, constants
     replaceToken '${git_hash}', git(), constants
-}
-
-repositories {
-    mavenCentral()
-    maven {
-        name = 'sponge'
-        url = 'http://repo.spongepowered.org/maven'
-    }
 }
 
 dependencies {
