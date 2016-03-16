@@ -9,6 +9,7 @@ plugins {
 }
 
 apply from: project('utilities').file('gradle/utils.gradle')
+apply from: project('utilities').file('gradle/sponge.gradle')
 
 defaultTasks 'clean', 'build'
 
