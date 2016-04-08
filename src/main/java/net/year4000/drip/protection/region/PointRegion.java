@@ -5,6 +5,7 @@
 package net.year4000.drip.protection.region;
 
 import com.flowpowered.math.vector.Vector3i;
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableSet;
 import net.year4000.utilities.ObjectHelper;
 
@@ -33,5 +34,20 @@ public final class PointRegion implements Region {
     @Override
     public Optional<Set<Vector3i>> getPoints() {
         return Optional.of(ImmutableSet.of(point));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return ObjectHelper.equals(this, other);
+    }
+
+    @Override
+    public int hashCode() {
+        return ObjectHelper.hashCode(this);
+    }
+
+    @Override
+    public String toString() {
+        return ObjectHelper.toString(this);
     }
 }
