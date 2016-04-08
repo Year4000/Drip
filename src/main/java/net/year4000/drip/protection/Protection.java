@@ -9,6 +9,7 @@ import com.flowpowered.math.vector.Vector3i;
 import com.google.common.collect.ImmutableSet;
 import net.year4000.drip.Constants;
 import net.year4000.drip.Drip;
+import net.year4000.utilities.ObjectHelper;
 import net.year4000.utilities.tuple.Pair;
 import org.spongepowered.api.block.BlockSnapshot;
 import org.spongepowered.api.block.BlockState;
@@ -31,7 +32,6 @@ import org.spongepowered.api.world.World;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 @Plugin(
@@ -47,8 +47,7 @@ public final class Protection extends Drip {
     /** The internal protection manager */
     private ProtectionManager manager;
     private static final Text SIGN_HEADER = Text.of("[Protect]");
-
-    private final Set<BlockType> BLOCK_TYPES = ImmutableSet.of(
+    private static final Set<BlockType> BLOCK_TYPES = ImmutableSet.of(
             BlockTypes.FENCE,
             BlockTypes.FENCE_GATE,
             BlockTypes.SPRUCE_FENCE,
@@ -157,7 +156,7 @@ public final class Protection extends Drip {
 
     /** Get the protection service or return the default one, if both fail throw an exception */
     public ProtectionService getProtectionService() {
-        Objects.requireNonNull(manager, "Protection manager has not been loaded yet.");
+        ObjectHelper.nonNull(manager, "Protection manager has not been loaded yet.");
         return services().provide(ProtectionService.class).orElse(manager);
     }
 
@@ -167,5 +166,10 @@ public final class Protection extends Drip {
             // register custom listener for plugin
         }
         // register region listeners
+    }
+
+    @Override
+    public String toString() {
+        return ObjectHelper.toString(this);
     }
 }
