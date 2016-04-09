@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /** Represents a cube region that wraps a cuboid region */
-public final class CubeRegion implements Region {
+public final class CubeRegion extends AbstractRegion {
     private CuboidRegion region;
 
     /** Create a cube region with a center value and height radius and width radius */
@@ -37,20 +37,5 @@ public final class CubeRegion implements Region {
     @Override
     public boolean contains(Vector3i vector3i) {
         return region.contains(vector3i);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return ObjectHelper.equals(this, other);
-    }
-
-    @Override
-    public int hashCode() {
-        return ObjectHelper.hashCode(this);
-    }
-
-    @Override
-    public String toString() {
-        return ObjectHelper.toString(this);
     }
 }

@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /** A region that contains a single point */
-public final class PointRegion implements Region {
+public final class PointRegion extends AbstractRegion {
     private Vector3i point;
 
     /** Allow creation of a PointRegion via x,y,z cords */
@@ -33,20 +33,5 @@ public final class PointRegion implements Region {
     @Override
     public Optional<Set<Vector3i>> getPoints() {
         return Optional.of(ImmutableSet.of(point));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return ObjectHelper.equals(this, other);
-    }
-
-    @Override
-    public int hashCode() {
-        return ObjectHelper.hashCode(this);
-    }
-
-    @Override
-    public String toString() {
-        return ObjectHelper.toString(this);
     }
 }
