@@ -1,10 +1,7 @@
 package net.year4000.drip;
 
 import com.flowpowered.math.vector.Vector3i;
-import net.year4000.drip.protection.region.CuboidRegion;
-import net.year4000.drip.protection.region.GlobalRegion;
-import net.year4000.drip.protection.region.PointRegion;
-import net.year4000.drip.protection.region.SphereRegion;
+import net.year4000.drip.protection.region.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -49,5 +46,17 @@ public class RegionTest {
         // todo Minecraft circles are not the same volume formula
         //int volume = (int) Math.ceil((4 * Math.PI * Math.pow(6, 3)) / 3); // volume of the sphere
         //Assert.assertEquals(volume, region.getPoints().get().size());
+    }
+
+    @Test
+    public void cubeRegion() {
+        final int radius = 5;
+        CubeRegion region = new CubeRegion(Vector3i.ZERO, radius);
+        System.out.println(region);
+        Assert.assertTrue(region.contains(Vector3i.ZERO));
+        Assert.assertFalse(region.contains(new Vector3i(6, 6, 6)));
+        Assert.assertTrue(region.getPoints().isPresent());
+        int volume = (int) Math.pow(radius * 2, 3); // volume of the cube we are testing
+        Assert.assertEquals(volume, region.getPoints().get().size());
     }
 }
