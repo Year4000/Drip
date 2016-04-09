@@ -5,7 +5,6 @@
 package net.year4000.drip.protection.region;
 
 import com.flowpowered.math.vector.Vector3i;
-import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableSet;
 import net.year4000.utilities.ObjectHelper;
 

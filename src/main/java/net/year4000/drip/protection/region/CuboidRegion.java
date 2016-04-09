@@ -1,7 +1,7 @@
 package net.year4000.drip.protection.region;
 
 import com.flowpowered.math.vector.Vector3i;
-import com.google.common.collect.Sets;
+import com.google.common.collect.ImmutableSet;
 import net.year4000.utilities.ObjectHelper;
 
 import java.lang.ref.SoftReference;
@@ -22,7 +22,7 @@ public final class CuboidRegion implements Region {
 
     /** Generate the points of the cuboid region */
     private Set<Vector3i> generatePoint() {
-        Set<Vector3i> points = Sets.newLinkedHashSet();
+        ImmutableSet.Builder<Vector3i> points = ImmutableSet.builder();
         Vector3i min = pointOne.min(pointTwo);
         Vector3i max = pointOne.max(pointTwo);
         for (int y = min.getY(); y < max.getY(); y++) {
@@ -32,7 +32,7 @@ public final class CuboidRegion implements Region {
                 }
             }
         }
-        return points;
+        return points.build();
     }
 
     @Override
