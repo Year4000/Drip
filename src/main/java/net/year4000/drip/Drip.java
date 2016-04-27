@@ -26,7 +26,7 @@ public class Drip extends AbstractSpongePlugin {
 
     /** Get the instance of this plugin */
     public static Drip get() {
-        return instance();
+        return instance(Drip.class);
     }
 
     /** Register the service with sponge, then return the provider */

@@ -6,7 +6,8 @@ package net.year4000.drip.protection.region;
 
 import com.flowpowered.math.vector.Vector3i;
 import com.google.common.collect.ImmutableSet;
-import net.year4000.utilities.ObjectHelper;
+import net.year4000.utilities.Conditions;
+import net.year4000.utilities.Utils;
 
 /** Represents a cuboid region with two positions */
 public final class CuboidRegion extends AbstractComplexRegion {
@@ -14,8 +15,8 @@ public final class CuboidRegion extends AbstractComplexRegion {
     private Vector3i pointTwo;
 
     public CuboidRegion(Vector3i pointOne, Vector3i pointTwo) {
-        this.pointOne = ObjectHelper.nonNull(pointOne, "pointOne");
-        this.pointTwo = ObjectHelper.nonNull(pointTwo, "pointTwo");
+        this.pointOne = Conditions.nonNull(pointOne, "pointOne");
+        this.pointTwo = Conditions.nonNull(pointTwo, "pointTwo");
     }
 
     /** Generate the points of the cuboid region */
@@ -42,5 +43,20 @@ public final class CuboidRegion extends AbstractComplexRegion {
         boolean y = vector3i.getY() >= min.getY() && vector3i.getY() <= max.getY();
         boolean z = vector3i.getZ() >= min.getZ() && vector3i.getZ() <= max.getZ();
         return x && y && z;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return Utils.equals(this, other);
+    }
+
+    @Override
+    public int hashCode() {
+        return Utils.hashCode(this);
+    }
+
+    @Override
+    public String toString() {
+        return Utils.toString(this);
     }
 }

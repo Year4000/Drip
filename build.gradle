@@ -17,6 +17,8 @@ defaultTasks 'clean', 'build'
 group 'net.year4000'
 version '0.0.1-SNAPSHOT'
 
+archivesBaseName = rootProject.name.toLowerCase()
+
 jar.manifest {
     attributes 'Implementation-Title': rootProject.name
     attributes 'Implementation-Version': version

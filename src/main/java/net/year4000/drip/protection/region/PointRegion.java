@@ -6,7 +6,8 @@ package net.year4000.drip.protection.region;
 
 import com.flowpowered.math.vector.Vector3i;
 import com.google.common.collect.ImmutableSet;
-import net.year4000.utilities.ObjectHelper;
+import net.year4000.utilities.Conditions;
+import net.year4000.utilities.Utils;
 
 import java.util.Optional;
 import java.util.Set;
@@ -22,7 +23,7 @@ public final class PointRegion extends AbstractRegion {
 
     /** Create the region with vector3i point */
     public PointRegion(Vector3i point) {
-        this.point = ObjectHelper.nonNull(point, "point");
+        this.point = Conditions.nonNull(point, "point");
     }
 
     @Override
@@ -33,5 +34,20 @@ public final class PointRegion extends AbstractRegion {
     @Override
     public Optional<Set<Vector3i>> getPoints() {
         return Optional.of(ImmutableSet.of(point));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return Utils.equals(this, other);
+    }
+
+    @Override
+    public int hashCode() {
+        return Utils.hashCode(this);
+    }
+
+    @Override
+    public String toString() {
+        return Utils.toString(this);
     }
 }

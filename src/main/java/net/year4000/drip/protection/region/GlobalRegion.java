@@ -5,6 +5,7 @@
 package net.year4000.drip.protection.region;
 
 import com.flowpowered.math.vector.Vector3i;
+import net.year4000.utilities.Utils;
 
 import java.util.Optional;
 import java.util.Set;
@@ -19,5 +20,20 @@ public final class GlobalRegion extends AbstractRegion {
     @Override
     public boolean contains(Vector3i vector3i) {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return Utils.equals(this, other);
+    }
+
+    @Override
+    public int hashCode() {
+        return Utils.hashCode(this);
+    }
+
+    @Override
+    public String toString() {
+        return Utils.toString(this);
     }
 }

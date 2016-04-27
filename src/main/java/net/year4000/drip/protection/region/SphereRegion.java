@@ -6,7 +6,8 @@ package net.year4000.drip.protection.region;
 
 import com.flowpowered.math.vector.Vector3i;
 import com.google.common.collect.ImmutableSet;
-import net.year4000.utilities.ObjectHelper;
+import net.year4000.utilities.Conditions;
+import net.year4000.utilities.Utils;
 
 /** A region that contains a sphere */
 public final class SphereRegion extends AbstractComplexRegion {
@@ -14,8 +15,8 @@ public final class SphereRegion extends AbstractComplexRegion {
     private int radius;
 
     public SphereRegion(Vector3i center, int radius) {
-        this.center = ObjectHelper.nonNull(center, "center");
-        this.radius = ObjectHelper.isLarger(radius, 0);
+        this.center = Conditions.nonNull(center, "center");
+        this.radius = Conditions.isLarger(radius, 0);
     }
 
     /** Generate the points of the sphere region */
@@ -38,5 +39,20 @@ public final class SphereRegion extends AbstractComplexRegion {
     @Override
     public boolean contains(Vector3i vector3i) {
         return center.distance(vector3i) <= radius;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return Utils.equals(this, other);
+    }
+
+    @Override
+    public int hashCode() {
+        return Utils.hashCode(this);
+    }
+
+    @Override
+    public String toString() {
+        return Utils.toString(this);
     }
 }

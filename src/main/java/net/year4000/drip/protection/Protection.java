@@ -9,7 +9,8 @@ import com.flowpowered.math.vector.Vector3i;
 import com.google.common.collect.ImmutableSet;
 import net.year4000.drip.Constants;
 import net.year4000.drip.Drip;
-import net.year4000.utilities.ObjectHelper;
+import net.year4000.utilities.Conditions;
+import net.year4000.utilities.Utils;
 import net.year4000.utilities.tuple.Pair;
 import org.spongepowered.api.block.BlockSnapshot;
 import org.spongepowered.api.block.BlockState;
@@ -76,7 +77,7 @@ public final class Protection extends Drip {
 
     /** Grab {@link Protection} instance*/
     public static Protection get() {
-        return instance();
+        return instance(Protection.class);
     }
 
     @Listener
@@ -156,7 +157,7 @@ public final class Protection extends Drip {
 
     /** Get the protection service or return the default one, if both fail throw an exception */
     public ProtectionService getProtectionService() {
-        ObjectHelper.nonNull(manager, "Protection manager has not been loaded yet.");
+        Conditions.nonNull(manager, "Protection manager has not been loaded yet.");
         return services().provide(ProtectionService.class).orElse(manager);
     }
 
@@ -170,6 +171,6 @@ public final class Protection extends Drip {
 
     @Override
     public String toString() {
-        return ObjectHelper.toString(this);
+        return Utils.toString(this);
     }
 }
