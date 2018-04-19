@@ -12,10 +12,10 @@ import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.service.ServiceManager;
 
 @Plugin(
-    id = "net.year4000.drip",
+    id = "net_year4000_drip",
     name = "Drip",
     version = Constants.FULL_VERSION,
-    dependencies = {@Dependency(id = "net.year4000.utilities")},
+    dependencies = {@Dependency(id = "net_year4000_utilities")},
     description = "A core system for drip modules.",
     url = "https://www.year4000.net",
     authors = {"ewized"}

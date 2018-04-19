@@ -5,7 +5,7 @@
 package net.year4000.drip.protection.region;
 
 import com.flowpowered.math.vector.Vector3i;
-import net.year4000.utilities.ObjectHelper;
+import net.year4000.utilities.Conditions;
 
 import java.util.Optional;
 import java.util.Set;
@@ -16,9 +16,9 @@ public final class CubeRegion extends AbstractRegion {
 
     /** Create a cube region with a center value and height radius and width radius */
     public CubeRegion(Vector3i center, int height, int width) {
-        ObjectHelper.nonNull(center, "center");
-        ObjectHelper.isLarger(height, 0);
-        ObjectHelper.isLarger(width, 0);
+        Conditions.nonNull(center, "center");
+        Conditions.isLarger(height, 0);
+        Conditions.isLarger(width, 0);
         Vector3i posOne = new Vector3i(center.getX() - width, center.getY() - height, center.getZ() - width);
         Vector3i posTwo = new Vector3i(center.getX() + width, center.getY() + height, center.getZ() + width);
         this.region = new CuboidRegion(posOne, posTwo);

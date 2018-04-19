@@ -36,10 +36,10 @@ import java.util.List;
 import java.util.Set;
 
 @Plugin(
-    id = "net.year4000.drip.protection",
+    id = "net_year4000_drip_protection",
     name = "Protect.Drip",
     version = Constants.GIT_HASH,
-    dependencies = {@Dependency(id = "net.year4000.drip")},
+    dependencies = {@Dependency(id = "net_year4000_utilities")},
     description = "Protect all the things without a database.",
     url = "https://www.year4000.net",
     authors = {"ewized"}

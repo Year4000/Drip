@@ -8,7 +8,7 @@ import com.flowpowered.math.vector.Vector3i;
 import com.google.common.collect.ImmutableSet;
 import net.year4000.drip.protection.region.AbstractComplexRegion;
 import net.year4000.drip.protection.region.Region;
-import net.year4000.utilities.ObjectHelper;
+import net.year4000.utilities.Conditions;
 import org.spongepowered.api.util.Identifiable;
 
 import java.util.Optional;
@@ -20,7 +20,7 @@ public class ProtectedRegion extends AbstractComplexRegion {
     private Set<Region> regions;
 
     public ProtectedRegion(Identifiable owner, Region... regions) {
-        this.owner = ObjectHelper.nonNull(owner, "owner");
+        this.owner = Conditions.nonNull(owner, "owner");
         this.regions = ImmutableSet.copyOf(regions);
     }
 

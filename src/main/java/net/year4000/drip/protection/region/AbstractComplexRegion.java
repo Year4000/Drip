@@ -6,7 +6,7 @@ package net.year4000.drip.protection.region;
 
 import com.flowpowered.math.vector.Vector3i;
 import com.google.common.collect.ImmutableSet;
-import net.year4000.utilities.ObjectHelper;
+import net.year4000.utilities.Conditions;
 
 import java.lang.ref.SoftReference;
 import java.util.Optional;
@@ -22,7 +22,7 @@ public abstract class AbstractComplexRegion extends AbstractRegion {
     /** Get the set of points generated */
     protected Set<Vector3i> points() {
         if (points == null || points.get() == null) {
-            points = new SoftReference<>(ObjectHelper.nonNull(generatePoints(), "generatePoints()"));
+            points = new SoftReference<>(Conditions.nonNull(generatePoints(), "generatePoints()"));
         }
         return points.get();
     }

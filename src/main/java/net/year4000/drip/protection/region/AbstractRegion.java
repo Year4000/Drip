@@ -4,22 +4,22 @@
 
 package net.year4000.drip.protection.region;
 
-import net.year4000.utilities.ObjectHelper;
+import net.year4000.utilities.Utils;
 
 /** The abstract region that handles the creation of points */
 public abstract class AbstractRegion implements Region {
     @Override
     public boolean equals(Object other) {
-        return ObjectHelper.equals(this, other);
+        return Utils.equals(this, other);
     }
 
     @Override
     public int hashCode() {
-        return ObjectHelper.hashCode(this);
+        return Utils.hashCode(this);
     }
 
     @Override
     public String toString() {
-        return ObjectHelper.toString(this);
+        return Utils.toString(this);
     }
 }
