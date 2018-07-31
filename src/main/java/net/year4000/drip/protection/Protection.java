@@ -7,6 +7,7 @@ package net.year4000.drip.protection;
 import com.flowpowered.math.vector.Vector2i;
 import com.flowpowered.math.vector.Vector3i;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Maps;
 import net.year4000.drip.Constants;
 import net.year4000.drip.Drip;
 import net.year4000.utilities.Conditions;
@@ -21,25 +22,27 @@ import org.spongepowered.api.data.manipulator.mutable.entity.SneakingData;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.ChangeBlockEvent;
+import org.spongepowered.api.event.block.tileentity.ChangeSignEvent;
 import org.spongepowered.api.event.filter.cause.First;
 import org.spongepowered.api.event.filter.data.Has;
 import org.spongepowered.api.event.game.state.GameAboutToStartServerEvent;
 import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
+import org.spongepowered.api.event.world.chunk.LoadChunkEvent;
 import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.world.Chunk;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Consumer;
 
 @Plugin(
-    id = "net_year4000_drip_protection",
-    name = "Protect.Drip",
+    id = "protection",
+    name = "Protection",
     version = Constants.GIT_HASH,
-    dependencies = {@Dependency(id = "net_year4000_utilities")},
+    dependencies = {@Dependency(id = "drip")},
     description = "Protect all the things without a database.",
     url = "https://www.year4000.net",
     authors = {"ewized"}
@@ -80,6 +83,17 @@ public final class Protection extends Drip {
         return instance(Protection.class);
     }
 
+    final Stack<Vector3i> signs = new Stack<>(); // used to cancle the events for the sign events
+
+    @Listener()
+    public void on(ChangeSignEvent event) {
+      if (signs.peek().equals(event.getTargetTile().getLocation().getBlockPosition())) {
+        signs.pop();
+        // todo use the text from the event to change permissions or do something with it
+        event.setCancelled(true);
+      }
+    }
+
     @Listener
     public void on(ChangeBlockEvent.Place event, @First @Has(SneakingData.class) Player player) {
         BlockSnapshot block = event.getTransactions().get(0).getFinal();
@@ -93,7 +107,9 @@ public final class Protection extends Drip {
         // Set the text of the sign
         block.getLocation().get().getTileEntity().ifPresent(entity -> {
             List<Text> lines = Arrays.asList(SIGN_HEADER, Text.of(player.getName()));
-            entity.offer(Keys.SIGN_LINES, lines);
+            if (entity.offer(Keys.SIGN_LINES, lines).isSuccessful()) {
+              signs.push(block.getPosition());
+            }
         });
     }
 
@@ -114,6 +130,33 @@ public final class Protection extends Drip {
                     .collect(Collectors.joining());
             player.sendMessage(Text.of(i % 2 == 0 ? TextColors.GREEN : TextColors.DARK_GREEN, line));
         }*/
+    }
+
+  private Map<Vector3i, ChunkGraph> regions = Maps.newHashMap();
+
+
+  @Listener
+    public void on(LoadChunkEvent event) {
+      Chunk chunk = event.getTargetChunk();
+      consumerOnChunk(chunk, blockState -> {
+        if (BLOCK_TYPES.contains(blockState.getType())) {
+          System.out.println(chunk.getPosition());
+        }
+      });
+    }
+
+    public void consumerOnChunk(Chunk chunk, Consumer<BlockState> consumer) {
+      final int chunkWidth = 16;
+      final int chunkHeight = 256;
+      Vector3i pos = chunk.getPosition();
+
+      for (int y = 0; y < chunkHeight; y++) {
+        for (int[] x = {pos.getX() << 4, 0}; x[1] < chunkWidth; x[0]++, x[1]++ ) {
+          for (int[] z = {pos.getZ() << 4, 0}; z[1] < chunkWidth; z[0]++, z[1]++ ) {
+            consumer.accept(chunk.getBlock(x[0], y, z[0]));
+          }
+        }
+      }
     }
 
     /** Convert a list of Pairs for BlockState */
