@@ -1,5 +1,4 @@
-// Copyright 2016 Year4000. All Rights Reserved.
-
+// Copyright 2018 Year4000. All Rights Reserved.
 
 plugins {
     id 'java'
@@ -8,8 +7,10 @@ plugins {
     id 'org.spongepowered.plugin' version '0.5.1'
 }
 
-apply from: project('utilities').file('gradle/utils.gradle')
-apply from: project('utilities').file('gradle/sponge.gradle')
+apply from: project('utilities').file('gradle/src/main/groovy/net/year4000/utilities/gradle/utils.gradle')
+apply from: project('utilities').file('gradle/src/main/groovy/net/year4000/utilities/gradle/sponge.gradle')
+
+rootProject.tasks.getByName('startForgeClient').mustRunAfter 'utilities:sponge:startForgeClient'
 
 defaultTasks 'clean', 'build'
 
@@ -33,7 +34,6 @@ blossom {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile 'org.projectlombok:lombok:1.14.8'
-    compile 'org.spongepowered:spongeapi:4.1.0-SNAPSHOT'
+    compile 'org.spongepowered:spongeapi:7.0.0-SNAPSHOT'
     compile project('utilities:sponge')
 }

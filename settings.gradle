@@ -1,10 +1,11 @@
-// Copyright 2016 Year4000. All Rights Reserved.
+// Copyright 2018 Year4000. All Rights Reserved.
 
 rootProject.name = 'Drip'
 
 include 'utilities'
 include 'utilities:core'
-include 'utilities:core:redis'
-include 'utilities:core:scheduler'
-include 'utilities:core:locale'
+include 'utilities:core-redis'
+include 'utilities:core-scheduler'
+include 'utilities:core-ducktape'
+include 'utilities:core-locale'
 include 'utilities:sponge'
