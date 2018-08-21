@@ -5,6 +5,7 @@
 package net.year4000.drip;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import net.year4000.utilities.sponge.AbstractSpongePlugin;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.plugin.Dependency;
@@ -21,8 +22,7 @@ import org.spongepowered.api.service.ServiceManager;
     authors = {"ewized"}
 )
 public class Drip extends AbstractSpongePlugin {
-    @Inject
-    protected Game game;
+    @Inject protected Game game;
 
     /** Get the instance of this plugin */
     public static Drip get() {
